@@ -34,7 +34,7 @@ class StationDialog extends Thread // parallel dialogs on the same socket
             evStation = new Event64();
             messageManager.addStation(station, evStation);
             
-        } catch (IOException e) {
+        } catch (Exception e) {
             try {
                 client.close();
             } catch (IOException e2) {
@@ -52,7 +52,7 @@ class StationDialog extends Thread // parallel dialogs on the same socket
         try {
             while (true) {
                 if(evStation.arrivedEvent()){
-                    String message = evStation.waitEvent();
+                    String message = (String) evStation.waitEvent();
                     bufferSocketOut.println(message);
                     break;
                 }
@@ -71,7 +71,7 @@ class StationDialog extends Thread // parallel dialogs on the same socket
 
                 // myOutput.printOther(line);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
         } finally {
             try {
                 client.close();

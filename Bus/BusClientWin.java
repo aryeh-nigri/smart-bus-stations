@@ -1,8 +1,3 @@
-
-
-//File name ClientWin78.java
-//Eiar 5770  update Sivan  5778
-//Levian Yehonatan
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,7 +20,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
-public class ClientWin78 extends JFrame implements ActionListener,KeyListener
+public class BusClientWin extends JFrame implements ActionListener,KeyListener
 {
 
     private JTextPane paneTextUp;
@@ -38,9 +33,9 @@ public class ClientWin78 extends JFrame implements ActionListener,KeyListener
     public JButton send;
     private String myName = "Your";
     private String otherName = "Server (Dialog)";
-    private Client78 myClient;
+    private BusClient myClient;
 
-    public ClientWin78(String header, Client78 myClient)
+    public BusClientWin(String header, BusClient myClient)
     {
         super(header);
         this.myClient = myClient;

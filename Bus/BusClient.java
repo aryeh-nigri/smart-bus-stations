@@ -1,12 +1,8 @@
-
-
-//File name Client78.java
-//Eiar 5770  update Sivan  5778
-//Levian Yehonatan
 import java.io.*;
 import java.net.*;
+import javax.swing.JOptionPane;
 
-class Client78
+class BusClient
 {
 
     String SERVERHOST = "LOCALHOST";
@@ -18,7 +14,7 @@ class Client78
     BufferedReader bufferSocketIn;
     PrintWriter bufferSocketOut;
     BufferedReader keyBoard;
-    ClientWin78 myOutput;
+    BusClientWin myOutput;
     String line;
 
     public void doit()
@@ -37,13 +33,18 @@ class Client78
                     new OutputStreamWriter(
                     clientSocket.getOutputStream())), true);
 
+            String busSerialNumber = JOptionPane.showInputDialog("Serial num of bus: ");
+            bufferSocketOut.println(busSerialNumber);
+            String busLineNumber = JOptionPane.showInputDialog("Line num of bus: ");   
+            bufferSocketOut.println(busLineNumber);   
+
 
 //  	   Init streams to read text from the keyboard
 //	   keyBoard = new BufferedReader(
 //	   new InputStreamReader(System.in));
 
 
-            myOutput = new ClientWin78("Client  ", this);
+            myOutput = new BusClientWin("Client  ", this);
 
             // notice about the connection
             myOutput.printMe("Connected to " + clientSocket.getInetAddress() +
@@ -86,7 +87,7 @@ class Client78
 
     public static void main(String[] args)
     {
-        Client78 client = new Client78();
+        BusClient client = new BusClient();
         client.doit();
     }
 }

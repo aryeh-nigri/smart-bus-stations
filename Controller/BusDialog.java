@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 
 class BusDialog extends Thread // parallel dialogs on the same socket
 {
@@ -33,8 +34,12 @@ class BusDialog extends Thread // parallel dialogs on the same socket
             bufferSocketOut = new PrintWriter(
                     new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
 
-            String line = bufferSocketIn.readLine();   //   bus serial number
+            String serial = bufferSocketIn.readLine(); // bus serial number
+            int busSerial = Integer.parseInt(serial);
+            System.out.println(busSerial);
+            String line = bufferSocketIn.readLine();   //   bus line number
             busLine = Integer.parseInt(line);
+            System.out.println(busLine);
             List<Integer> stations = messageManager.busBeginTrip(busLine);
             bufferSocketOut.println(stations);
 
@@ -58,7 +63,7 @@ class BusDialog extends Thread // parallel dialogs on the same socket
                 line = bufferSocketIn.readLine();   //   station
                 int station = Integer.parseInt(line);
                 messageManager.busArrivedAtStation(busLine, station);
-                break;
+                // break;
 
                 // if (line == null)
                 // break;

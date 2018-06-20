@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import javax.swing.JOptionPane;
 
 class StationClient {
 
@@ -11,7 +12,7 @@ class StationClient {
     BufferedReader bufferSocketIn;
     PrintWriter bufferSocketOut;
     BufferedReader keyBoard;
-    StationClientWin myOutput = null;
+    // StationClientWin myOutput = null;
     String line;
 
     public void doit() {
@@ -28,20 +29,26 @@ class StationClient {
             // Init streams to read text from the keyboard
             // keyBoard = new BufferedReader(new InputStreamReader(System.in));
 
-            myOutput = new StationClientWin("Client  ", this);
+            String stationSerialNumber = JOptionPane.showInputDialog("Serial Num Station: ");
+            bufferSocketOut.println(stationSerialNumber);
+
+            // myOutput = new StationClientWin("Client  ", this);
 
             // notice about the connection
-            myOutput.printMe("Connected to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
+            // myOutput.printMe("Connected to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
+            System.out.println("Connected to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
             while (true) {
                 line = bufferSocketIn.readLine(); // reads a line from the server
                 if (line == null) // connection is closed ? exit
                 {
-                    myOutput.printMe("Connection closed by the Server.");
+                    // myOutput.printMe("Connection closed by the Server.");
+                    System.out.println("Connection closed by the Server.");
                     break;
                 }
 
-                myOutput.printOther(line); // shows it on the screen
+                // myOutput.printOther(line); // shows it on the screen
+                System.out.println(line);
 
                 if (line.equals("end")) {
                     break;
@@ -49,9 +56,9 @@ class StationClient {
             }
 
         } catch (IOException e) {
-            if (myOutput != null) {
-                myOutput.printMe(e.toString());
-            }
+            // if (myOutput != null) {
+            //     myOutput.printMe(e.toString());
+            // }
             System.err.println(e);
         } finally {
             try {
@@ -62,10 +69,10 @@ class StationClient {
             }
         }
 
-        if (myOutput != null) {
-            myOutput.printMe("end of client ");
-            myOutput.send.setText("Close");
-        }
+        // if (myOutput != null) {
+        //     myOutput.printMe("end of client ");
+        //     myOutput.send.setText("Close");
+        // }
 
         System.out.println("end of client ");
     }
